@@ -1,0 +1,23 @@
+{
+  "name": "bamazon",
+  "version": "1.0.0",
+  "description": "small app to view and order products from a tiny amazon-like db",
+  "main": "bAmazonCustomer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ngbricen/bAmazon.git"
+  },
+  "author": "Brice N",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ngbricen/bAmazon/issues"
+  },
+  "homepage": "https://github.com/ngbricen/bAmazon#readme",
+  "dependencies": {
+    "inquirer": "^3.2.1",
+    "mysql": "^2.14.0"
+  }
+}
