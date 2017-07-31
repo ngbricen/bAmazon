@@ -29,15 +29,15 @@ function placeOrder(){
 	      .prompt([
 	        {
 	          name: "choice",
-	          type: "rawlist",
+	          type: "list",
 	          choices: function() {
 	            var choiceArray = [];
 	            for (var i = 0; i < res.length; i++) {
-	              choiceArray.push(res[i].product_name);
+	              choiceArray.push(res[i].product_name + " *Quantity is " + res[i].stock_quantity + "*");
 	            }
 	            return choiceArray;
 	          },
-	          message: "What product Id would you like to buy?"
+	          message: "What product would you like to buy?"
 	        },
 	        {
 	          name: "quantity",
@@ -50,17 +50,21 @@ function placeOrder(){
 	        var chosenItem;
 	        
 	        for (var i = 0; i < res.length; i++) {
-	          if (res[i].product_name === answer.choice) {
+	          if (res[i].product_name + " *Quantity is " + res[i].stock_quantity + "*" === answer.choice) {
 	            chosenItem = res[i];
 	          }
 	        }
        
-      		if (chosenItem.stock_quantity <= 0){
-      			console.log("Product is not currently available.  Please order another product.");
+      		if (chosenItem.stock_quantity < 0){
+      			console.log("\nProduct is currently in back order.  Please order another product.\n");
       			placeOrder();
       		}
-      		else if (chosenItem.stock_quantity <= answer.quantity){
-      			console.log("We don't have enough products to fulfill your command. Please place another order");	
+      		else if (chosenItem.stock_quantity === 0){
+      			console.log("\nProduct is not currently available.  Please order another product.\n");
+      			placeOrder();
+      		}
+      		else if (chosenItem.stock_quantity < answer.quantity){
+      			console.log("\nWe don't have enough products to fulfill your command. Please place another order\n");	
       			placeOrder();
       		}
       		else {
@@ -75,7 +79,7 @@ function placeOrder(){
 }
 
 function updateProduct(id,quantity) {
-  console.log("Updating ordered Products...\n");
+  console.log("\nUpdating ordered Products...\n");
   var query = connection.query(
     "UPDATE products SET ? WHERE ?",
     [
